@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:43:00 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/02/23 14:53:19 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/03 18:17:08 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,27 @@ typedef struct s_program
 
 }					t_program;
 
-// init
+// INIT
 void				init_program(t_program *program, t_philosophers *philos);
 void				init_philos_data(t_philosophers *philos, char **av);
 void				init_fork(pthread_mutex_t *forks, int philo_num);
 void				init_philos(t_program *program, t_philosophers *philos,
 						pthread_mutex_t *forks, char **av);
-// utils
+// UTILS
 void				check_args(int ac, char **av);
 int					ft_checkifint(char *nptr);
 size_t				current_time(void);
-// free
+
+// PHILOS
+void				*philo_routine(void *arg);
+
+// SUPERVISE
+void				*supervise(void *arg);
+
+// THREADS
+void				create_thread(t_program *program, pthread_mutex_t *forks);
+
+// FREE
 void				liberation(char *msg);
 int					main(int ac, char **av);
 

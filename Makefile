@@ -6,7 +6,7 @@
 #    By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:41:57 by dliuzzo           #+#    #+#              #
-#    Updated: 2024/02/22 12:58:46 by dliuzzo          ###   ########.fr        #
+#    Updated: 2024/04/03 18:18:07 by dliuzzo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,11 @@ CFLAGS += -I$I
 
 SRCS =	$Smain.c \
 		$Sliberation.c \
-		$Sutils.c 
+		$Sutils.c \
+		$Sinit.c \
+		$Sphilos.c \
+		$Ssupervise.c \
+		$Sthreads.c 
 #		$(addprefix $S, examplefolder/)
 
 #ifeq ($(MAKECMDGOALS), bonus)
