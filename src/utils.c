@@ -6,11 +6,21 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:11:45 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/03 18:11:11 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:49:11 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+int	dead_check(t_philosophers *philosopher)
+{
+	pthread_mutex_lock(philosopher->dead_lock);
+	if (philosopher->dead == 1)
+	{
+		pthread_mutex_unlock(philosopher->dead_lock);
+		return(1);
+	}
+	return(0);	
+}
 
 int	ft_checkifint(char *nptr)
 {
@@ -69,4 +79,15 @@ size_t		current_time(void)
 	if(gettimeofday(&current_time, NULL) == -1)
 		liberation("Current Time Error\n");;
 	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+}
+
+void print_msg(char *msg, int id, t_philosophers *philosopher)
+{
+	int time;
+
+	pthread_mutex_lock(philosopher->write_lock);
+	time = current_time() - philosopher->start_time;
+	if(!dead_check(philosopher))
+		printf("Philosopher %i %s at %zu\n",id, msg, time);
+	pthread_mutex_unlock(philosopher->write_lock);
 }

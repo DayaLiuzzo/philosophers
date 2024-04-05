@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:09:21 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/03 18:15:14 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/05 15:35:27 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ void	*philo_routine(void *arg)
 
 	i = 0;
 	philosopher = *(t_philosophers *)arg;
-	while (*philosopher.dead != 1)
+	while (dead_check(philosopher))
 	{
-		sleep(1);
-		if (i == 0)
-		{
-			printf("%i is thinking\n", philosopher.id);
-			i = 1;
-		}
+		eat(philosopher);
+		think(philosopher);
+		usleep(philosopher.time_to_sleep);
+		
 	}
 	return (NULL);
 }
