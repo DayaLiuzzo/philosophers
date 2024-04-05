@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:11:45 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/05 16:13:15 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/05 17:42:37 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	dead_check(t_philosophers *philosopher)
 		pthread_mutex_unlock(philosopher->dead_lock);
 		return(1);
 	}
+	pthread_mutex_unlock(philosopher->dead_lock);
 	return(0);	
 }
 

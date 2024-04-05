@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:43:00 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/05 17:18:48 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/05 19:05:42 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,10 @@ int					dead_check(t_philosophers *philosopher);
 
 // PHILOS
 void				*philo_routine(void *arg);
+int ft_usleep(size_t time);
+void	think(t_philosophers *philosopher);
+void	ft_sleep(t_philosophers *philosopher);
+void eat(t_philosophers *philosopher);
 
 // SUPERVISE
 void				*supervise(void *arg);

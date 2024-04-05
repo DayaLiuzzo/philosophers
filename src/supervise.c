@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:06:57 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/05 16:59:53 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/05 17:45:23 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ int check_if_all_ate(t_philosophers *philosophers)
 
 	i = 0;
 	full = 0;
-	pthread_mutex_lock(philosophers->meal_lock);
-	while(i <= philosophers[0].num_of_philos)
+	while(i < philosophers[0].num_of_philos)
 	{
-		if(philosophers[i].meals_eaten >= philosophers[0].num_times_to_eat)
+		pthread_mutex_lock(philosophers->meal_lock);
+		if(philosophers[i].meals_eaten >= philosophers[i].num_times_to_eat)
 			full++;
+		pthread_mutex_unlock(philosophers->meal_lock);
 		i++;
 	}
-	pthread_mutex_unlock(philosophers->meal_lock);
 	if(full == philosophers[0].num_of_philos)
 	{
-		pthread_mutex_lock(philosophers->dead_lock);
+		pthread_mutex_lock(philosophers[0].dead_lock);
 		*philosophers->dead = 1;
-		pthread_mutex_unlock(philosophers->dead_lock);
+		pthread_mutex_unlock(philosophers[0].dead_lock);
 		return(1);
 	}
     return(0);   
@@ -53,14 +53,14 @@ int check_if_dead(t_philosophers *philosophers)
     int i;
 
     i = 0;
-    while(i < philosophers->num_of_philos)
+    while(i < philosophers[0].num_of_philos)
     {
         if(is_dead(&philosophers[i]))
 		{
-			pthread_mutex_lock(philosophers->dead_lock);
-			*philosophers->dead = 1;
-			pthread_mutex_unlock(philosophers->dead_lock);
 			print_msg("DIED", philosophers[i].id, &philosophers[i]);
+			pthread_mutex_lock(philosophers[0].dead_lock);
+			*philosophers->dead = 1;
+			pthread_mutex_unlock(philosophers[0].dead_lock);
 			return (1);
 		}
 		i++;
@@ -75,8 +75,7 @@ void	*supervise(void *arg)
 	philosophers = (t_philosophers *)arg;
 	while (1)
 	{
-		printf("LOL");
-		if ((check_if_dead(philosophers)) || (check_if_all_ate(philosophers)))
+		if ((check_if_dead(philosophers)) ==  1|| (check_if_all_ate(philosophers) == 1))
 			break ;
 	}
 	return (philosophers);
