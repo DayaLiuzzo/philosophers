@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:43:00 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/03 18:17:08 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/05 17:18:48 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,21 @@ void				init_philos(t_program *program, t_philosophers *philos,
 // UTILS
 void				check_args(int ac, char **av);
 int					ft_checkifint(char *nptr);
+void				print_msg(char *msg, int id, t_philosophers *philosopher);
 size_t				current_time(void);
+int					dead_check(t_philosophers *philosopher);
 
 // PHILOS
 void				*philo_routine(void *arg);
 
 // SUPERVISE
 void				*supervise(void *arg);
+int					is_dead(t_philosophers *philosopher);
+int					check_if_dead(t_philosophers *philosophers);
+int					check_if_all_ate(t_philosophers *philosophers);
 
 // THREADS
-void				create_thread(t_program *program, pthread_mutex_t *forks);
+int				create_thread(t_program *program, pthread_mutex_t *forks);
 
 // FREE
 void				liberation(char *msg);

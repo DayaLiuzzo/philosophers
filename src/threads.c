@@ -6,32 +6,47 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:08:08 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/03 18:16:55 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/05 17:18:59 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void    create_thread(t_program *program, pthread_mutex_t *forks)
+// destroy_all(char *msg, pthread_mutex_t *forks, t_program *program)
+// {
+// 	printf("%s\n", msg);
+// 	int i;
+// 	i = 0;
+	
+// 	while( )
+// 	{
+		
+// 	}
+// 	pthread_mutex_destroy()
+// }
+
+int     create_thread(t_program *program, pthread_mutex_t *forks)
 {
 	int i = 0;
 	pthread_t supervisor;
-
+	(void)forks;
 	if (pthread_create(&supervisor, NULL, &supervise, program->philos) != 0)
-		destroy_all("Thread creation error");
-	while (i != program->philos->num_of_philos)
+		printf("ERREUR\n");
+		// destroy_all("Thread creation error", forks, program);
+	while (i < program->philos[0].num_of_philos)
 	{
-		pthread_create(program->philos[i].thread, NULL, philo_routine,
-			(void *)&program->philos[i]);
+		pthread_create(&program->philos[i].thread, NULL, &philo_routine,
+			&program->philos[i]);
 		i++;
 	}
 	if (pthread_join(supervisor, NULL) != 0)
-		destroy_all("Thread join error", program, forks);
+		printf("ERREUR\n");
+		// destroy_all("Thread join error", forks, program);
 	i = 0;
-	while (i != program->philos->num_of_philos)
+	while (i < program->philos[0].num_of_philos)
 	{
 		pthread_join(program->philos[i].thread, NULL);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }

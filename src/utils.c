@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:11:45 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/05 15:49:11 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/05 16:13:15 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 int	dead_check(t_philosophers *philosopher)
 {
 	pthread_mutex_lock(philosopher->dead_lock);
-	if (philosopher->dead == 1)
+	if (*philosopher->dead == 1)
 	{
 		pthread_mutex_unlock(philosopher->dead_lock);
 		return(1);
@@ -83,7 +83,7 @@ size_t		current_time(void)
 
 void print_msg(char *msg, int id, t_philosophers *philosopher)
 {
-	int time;
+	size_t time;
 
 	pthread_mutex_lock(philosopher->write_lock);
 	time = current_time() - philosopher->start_time;
