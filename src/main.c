@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:51:03 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/05 17:21:45 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/09 20:12:19 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int	main(int ac, char **av)
 	init_fork(forks, ft_checkifint(av[1]));
 	init_philos(&program, philos, forks, av);
 	create_thread(&program, forks);
+	destroy_all("", &program, forks);
 	return (0);
 }

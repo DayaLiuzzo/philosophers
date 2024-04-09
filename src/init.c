@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:10:52 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/03 18:15:27 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/09 19:36:54 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	init_fork(pthread_mutex_t *forks, int philo_nb)
 
 void	init_philos_data(t_philosophers *philos, char **av)
 {
-	philos->num_of_philos = atoi(av[1]);
 	philos->time_to_die = atoi(av[2]);
 	philos->time_to_eat = atoi(av[3]);
 	philos->time_to_sleep = atoi(av[4]);
+	philos->num_of_philos = atoi(av[1]);
 	if (av[5])
 		philos->num_times_to_eat = atoi(av[5]);
 	else
@@ -53,17 +53,16 @@ void	init_philos(t_program *program, t_philosophers *philos,
 	i = 0;
 	while (i < atoi(av[1]))
 	{
-		philos[i].dead = &program->isdead;
 		philos[i].id = i + 1;
 		philos[i].eating = 0;
 		philos[i].meals_eaten = 0;
-		philos[i].r_fork = &forks[i];
+		init_philos_data(&philos[i], av);
+		philos[i].start_time = current_time();
+		philos[i].last_meal = current_time();
 		philos[i].write_lock = &program->write_lock;
 		philos[i].dead_lock = &program->dead_lock;
 		philos[i].meal_lock = &program->meal_lock;
-		philos[i].start_time = current_time();
-		philos[i].last_meal = current_time();
-		init_philos_data(&philos[i], av);
+		philos[i].dead = &program->isdead;
 		philos[i].l_fork = &forks[i];
 		if (i == 0)
 			philos[i].r_fork = &forks[philos[i].num_of_philos - 1];

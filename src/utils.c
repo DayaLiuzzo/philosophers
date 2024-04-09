@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:11:45 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/05 17:42:37 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/09 20:19:41 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@ int	dead_check(t_philosophers *philosopher)
 {
 	pthread_mutex_lock(philosopher->dead_lock);
 	if (*philosopher->dead == 1)
-	{
-		pthread_mutex_unlock(philosopher->dead_lock);
-		return(1);
-	}
+		return(pthread_mutex_unlock(philosopher->dead_lock), 1);
 	pthread_mutex_unlock(philosopher->dead_lock);
 	return(0);	
 }
@@ -57,9 +54,7 @@ void	check_args(int ac, char **av)
 	int	i;
 
 	i = 1;
-	if (ac < 5)
-		liberation("Few Args");
-	if (ac > 6)
+	if (ac != 5 && ac != 6)
 		liberation("Too many Args");
 	while (av[i] && i < 5)
 	{
@@ -77,8 +72,9 @@ void	check_args(int ac, char **av)
 size_t		current_time(void)
 {
 	struct timeval current_time;
+	
 	if(gettimeofday(&current_time, NULL) == -1)
-		liberation("Current Time Error\n");;
+		liberation("Current Time Error\n");
 	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
 }
 
@@ -89,6 +85,6 @@ void print_msg(char *msg, int id, t_philosophers *philosopher)
 	pthread_mutex_lock(philosopher->write_lock);
 	time = current_time() - philosopher->start_time;
 	if(!dead_check(philosopher))
-		printf("Philosopher %i %s at %zu\n",id, msg, time);
+		printf("%zu Philosopher %i %s\n",time ,id, msg);
 	pthread_mutex_unlock(philosopher->write_lock);
 }

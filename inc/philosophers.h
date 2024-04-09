@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:43:00 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/05 19:05:42 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/09 20:10:32 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void eat(t_philosophers *philosopher);
 
 // SUPERVISE
 void				*supervise(void *arg);
-int					is_dead(t_philosophers *philosopher);
+int is_dead(t_philosophers *philosopher, size_t time_to_die);
 int					check_if_dead(t_philosophers *philosophers);
 int					check_if_all_ate(t_philosophers *philosophers);
 
@@ -88,5 +88,6 @@ int				create_thread(t_program *program, pthread_mutex_t *forks);
 // FREE
 void				liberation(char *msg);
 int					main(int ac, char **av);
+void destroy_all(char *msg, t_program *program, pthread_mutex_t *forks);
 
 #endif
