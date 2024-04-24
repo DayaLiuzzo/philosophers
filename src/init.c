@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:10:52 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/09 19:36:54 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/04/11 12:38:41 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	init_program(t_program *program, t_philosophers *philos)
 	pthread_mutex_init(&program->dead_lock, NULL);
 	pthread_mutex_init(&program->write_lock, NULL);
 	pthread_mutex_init(&program->meal_lock, NULL);
-	// program->philos->num_of_philos = ft_checkifint(av[1]);
 }
 
 void	init_fork(pthread_mutex_t *forks, int philo_nb)
@@ -45,10 +44,11 @@ void	init_philos_data(t_philosophers *philos, char **av)
 	else
 		philos->num_times_to_eat = -1;
 }
+
 void	init_philos(t_program *program, t_philosophers *philos,
 		pthread_mutex_t *forks, char **av)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < atoi(av[1]))

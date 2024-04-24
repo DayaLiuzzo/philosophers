@@ -6,11 +6,11 @@
 #    By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/07 15:41:57 by dliuzzo           #+#    #+#              #
-#    Updated: 2024/04/03 18:18:07 by dliuzzo          ###   ########.fr        #
+#    Updated: 2024/04/24 14:15:24 by dliuzzo          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philosophers
+NAME = philo
 
 ifeq ($(MAKECMDGOALS), bonus)
 NAME = philosophers_bonus
@@ -45,7 +45,8 @@ SRCS =	$Smain.c \
 		$Sinit.c \
 		$Sphilos.c \
 		$Ssupervise.c \
-		$Sthreads.c 
+		$Sthreads.c \
+		$Sutils2.c
 #		$(addprefix $S, examplefolder/)
 
 #ifeq ($(MAKECMDGOALS), bonus)
