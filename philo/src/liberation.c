@@ -6,17 +6,20 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 16:45:36 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/11 12:37:36 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/05/03 17:10:22 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-void	liberation(char *msg)
+int	ft_strlen(char *str)
 {
-	if (msg)
-		printf("%s\n", msg);
-	exit(1);
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 void	destroy_all(char *msg, t_program *program, pthread_mutex_t *forks)
@@ -26,7 +29,7 @@ void	destroy_all(char *msg, t_program *program, pthread_mutex_t *forks)
 	i = 0;
 	if (msg)
 	{
-		write(2, msg, strlen(msg));
+		write(2, msg, ft_strlen(msg));
 		write(2, "\n", 1);
 	}
 	pthread_mutex_destroy(&program->dead_lock);

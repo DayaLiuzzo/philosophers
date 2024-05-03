@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:11:45 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/24 14:14:58 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/05/03 17:10:29 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,32 @@ int	ft_checkifint(char *nptr)
 		r = 10 * r + (nptr[i] - '0');
 		i++;
 		if ((r > 2147483647 && m == 1) || (r > 2147483648 && m == -1))
-			return (liberation("Invalid characters"), -1);
+			return (write(1, "Invalid characters", 19), -1);
 	}
-	if (i == 0 || i != (int)strlen(nptr))
-		return (liberation("Invalid characters"), -1);
+	if (i == 0 || i != (int)ft_strlen(nptr))
+		return (write(1, "Invalid characters", 19), -1);
 	return ((int)r * m);
 }
 
-void	check_args(int ac, char **av)
+int	check_args(int ac, char **av)
 {
 	int	i;
 
 	i = 1;
 	if (ac != 5 && ac != 6)
-		liberation("Too many Args");
+		return (write(1, "Wrong Argument Count\n", 22));
 	while (av[i] && i < 5)
 	{
 		if (ft_checkifint(av[i]) <= 0)
-			liberation("Invalid characters");
+			return (write(1, "Invalid Characters\n", 20));
 		i++;
 	}
 	if (ac == 6 && av[i])
 		if (ft_checkifint(av[i]) < 0)
-			liberation("A girl gotta eat??");
-	if (atoi(av[1]) > 200)
-		liberation("Too many mouth to feed");
+			return (write(1, "A girl gotta eat?\n", 19));
+	if (ft_checkifint(av[1]) > 200)
+		return (write(1, "Too Many mouth to feed\n", 24));
+	return (0);
 }
 
 size_t	current_time(void)
@@ -75,6 +76,6 @@ size_t	current_time(void)
 	struct timeval	current_time;
 
 	if (gettimeofday(&current_time, NULL) == -1)
-		liberation("Current Time Error\n");
+		write(1, "Current Time Error\n", 20);
 	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
 }

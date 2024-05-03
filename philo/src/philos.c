@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:09:21 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/24 14:16:14 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/05/03 17:08:03 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,17 @@ void	eat(t_philosophers *philosopher)
 		return ;
 	}
 	pthread_mutex_lock(philosopher->l_fork);
-	print_msg_eat(philosopher->id, philosopher);
-	philosopher->eating = 1;
+	print_msg("has taken a fork", philosopher->id, philosopher);
 	pthread_mutex_lock(philosopher->meal_lock);
 	philosopher->last_meal = current_time();
-	philosopher->meals_eaten++;
+	print_msg("is eating", philosopher->id, philosopher);
+	philosopher->eating = 1;
 	pthread_mutex_unlock(philosopher->meal_lock);
 	ft_usleep2(philosopher->time_to_eat, philosopher);
+	pthread_mutex_lock(philosopher->meal_lock);
+	philosopher->meals_eaten++;
 	philosopher->eating = 0;
+	pthread_mutex_unlock(philosopher->meal_lock);
 	pthread_mutex_unlock(philosopher->r_fork);
 	pthread_mutex_unlock(philosopher->l_fork);
 }

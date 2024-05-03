@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:43:00 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/24 14:14:21 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/05/03 17:09:28 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,25 @@ typedef struct s_philosophers
 	int				num_of_philos;
 	int				num_times_to_eat;
 	int				*dead;
+	int				launched;
+	int				*all_launched;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
+	pthread_mutex_t	*started;
 }					t_philosophers;
 
 typedef struct s_program
 {
 	int				isdead;
+	int				all_launched;
 	t_philosophers	*philos;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;
+	pthread_mutex_t	started;
 
 }					t_program;
 // INIT
@@ -65,8 +70,8 @@ void				init_philos(t_program *program, t_philosophers *philos,
 						pthread_mutex_t *forks, char **av);
 int					ft_usleep2(size_t time, t_philosophers *philo);
 // UTILS
-void				print_msg_eat(int id, t_philosophers *philosopher);
-void				check_args(int ac, char **av);
+int					ft_strlen(char *str);
+int					check_args(int ac, char **av);
 void				print_msg(char *msg, int id, t_philosophers *philosopher);
 size_t				current_time(void);
 int					ft_checkifint(char *nptr);

@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:51:03 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/04/09 20:12:19 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/05/03 17:09:48 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int	main(int ac, char **av)
 	t_philosophers	philos[200];
 	pthread_mutex_t	forks[200];
 
-	check_args(ac, av);
+	if (check_args(ac, av) != 0)
+		return (1);
 	init_program(&program, philos);
 	init_fork(forks, ft_checkifint(av[1]));
 	init_philos(&program, philos, forks, av);
