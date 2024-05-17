@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 18:09:21 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/05/03 17:08:03 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/05/17 15:21:22 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_usleep2(size_t time, t_philosophers *philo)
 
 	start = current_time();
 	while ((current_time() - start) < time && dead_check(philo) == 0)
-		usleep(50);
+		usleep(75);
 	return (0);
 }
 
@@ -56,16 +56,15 @@ void	*philo_routine(void *arg)
 
 void	eat(t_philosophers *philosopher)
 {
-	pthread_mutex_lock(philosopher->r_fork);
-	print_msg("has taken a fork", philosopher->id, philosopher);
 	if (philosopher->num_of_philos == 1)
 	{
+		pthread_mutex_lock(philosopher->r_fork);
+		print_msg("has taken a fork", philosopher->id, philosopher);
 		ft_usleep(philosopher->time_to_die);
 		pthread_mutex_unlock(philosopher->r_fork);
 		return ;
 	}
-	pthread_mutex_lock(philosopher->l_fork);
-	print_msg("has taken a fork", philosopher->id, philosopher);
+	pick_fork(philosopher);
 	pthread_mutex_lock(philosopher->meal_lock);
 	philosopher->last_meal = current_time();
 	print_msg("is eating", philosopher->id, philosopher);
@@ -76,6 +75,5 @@ void	eat(t_philosophers *philosopher)
 	philosopher->meals_eaten++;
 	philosopher->eating = 0;
 	pthread_mutex_unlock(philosopher->meal_lock);
-	pthread_mutex_unlock(philosopher->r_fork);
-	pthread_mutex_unlock(philosopher->l_fork);
+	drop_fork(philosopher);
 }

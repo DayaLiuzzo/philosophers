@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:51:03 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/05/03 17:09:48 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/05/17 14:54:52 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	main(int ac, char **av)
 {
 	t_program		program;
-	t_philosophers	philos[200];
-	pthread_mutex_t	forks[200];
+	t_philosophers	philos[300];
+	pthread_mutex_t	forks[300];
 
 	if (check_args(ac, av) != 0)
 		return (1);

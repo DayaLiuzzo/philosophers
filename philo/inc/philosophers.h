@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 15:43:00 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/05/03 17:09:28 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/05/17 15:21:00 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int					ft_checkifint(char *nptr);
 int					dead_check(t_philosophers *philosopher);
 
 // PHILOS
-
+void				drop_fork(t_philosophers *philosopher);
+void				pick_fork(t_philosophers *philosopher);
 int					ft_usleep(size_t time);
 void				*philo_routine(void *arg);
 void				think(t_philosophers *philosopher);

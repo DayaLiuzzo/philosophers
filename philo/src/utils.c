@@ -6,7 +6,7 @@
 /*   By: dliuzzo <dliuzzo@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 18:11:45 by dliuzzo           #+#    #+#             */
-/*   Updated: 2024/05/03 17:10:29 by dliuzzo          ###   ########.fr       */
+/*   Updated: 2024/05/17 14:56:13 by dliuzzo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	ft_checkifint(char *nptr)
 		r = 10 * r + (nptr[i] - '0');
 		i++;
 		if ((r > 2147483647 && m == 1) || (r > 2147483648 && m == -1))
-			return (write(1, "Invalid characters", 19), -1);
+			return (-1);
 	}
 	if (i == 0 || i != (int)ft_strlen(nptr))
-		return (write(1, "Invalid characters", 19), -1);
+		return (-1);
 	return ((int)r * m);
 }
 
@@ -66,7 +66,7 @@ int	check_args(int ac, char **av)
 	if (ac == 6 && av[i])
 		if (ft_checkifint(av[i]) < 0)
 			return (write(1, "A girl gotta eat?\n", 19));
-	if (ft_checkifint(av[1]) > 200)
+	if (ft_checkifint(av[1]) > 300)
 		return (write(1, "Too Many mouth to feed\n", 24));
 	return (0);
 }
